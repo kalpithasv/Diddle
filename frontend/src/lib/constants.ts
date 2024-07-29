@@ -6,14 +6,14 @@ type NavLink = {
 export const navLink: NavLink[] = [
   {
     name: "Home",
-    path: "hero",
+    path: "/hero",
   },
   {
     name: "About",
-    path: "about",
+    path: "/about",
   },
   {
     name: "Contact",
-    path: "contact",
+    path: "/contact",
   },
 ];
