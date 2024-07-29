@@ -18,6 +18,9 @@ interface User {
   email: string;
   password: string;
   username: string;
+  role: string;
+  bio: string;
+  phone_number: string;
 }
 
 export default function Signup() {
@@ -25,62 +28,143 @@ export default function Signup() {
     email: "",
     password: "",
     username: "",
+    role: "client",
+    bio: "",
+    phone_number: "",
   });
 
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch("/backend/auth/signup/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (response.ok) {
+      router.push("/login");
+    } else {
+      // Handle error
+      console.error("Signup failed");
+    }
+  };
+
   return (
-    <div className="h-screen w-full bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
+    <div className="h-screen w-full bg-neutral-950 flex items-center justify-center antialiased">
       <div className="z-20">
-        <Card className="w-[350px]">
+        <Card className="w-[600px] bg-white text-uno-cyan border-uno-pink border-2">
           <CardHeader>
-            <CardTitle>Sign-Up</CardTitle>
-            <CardDescription>Register yourself in the Banao</CardDescription>
+            <CardTitle className="text-uno-yellow">Sign-Up</CardTitle>
+            <CardDescription className="text-uno-green">Register yourself in the Banao</CardDescription>
           </CardHeader>
           <CardContent>
-            <form>
-              <div className="grid w-full items-center gap-4">
+            <form onSubmit={handleSubmit}>
+              <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Username</Label>
+                  <Label htmlFor="username" className="text-uno-pink">Username</Label>
                   <Input
-                    id="name"
+                    id="username"
                     value={user.username}
                     onChange={(e) =>
                       setUser({ ...user, username: e.target.value })
                     }
                     placeholder="Username"
+                    className="text-uno-cyan border-uno-pink"
                   />
                 </div>
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="framework">Email</Label>
+                  <Label htmlFor="email" className="text-uno-pink">Email</Label>
                   <Input
-                    id="name"
+                    id="email"
                     type="email"
                     value={user.email}
                     onChange={(e) =>
                       setUser({ ...user, email: e.target.value })
                     }
                     placeholder="Email"
+                    className="text-uno-cyan border-uno-pink"
                   />
                 </div>
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="framework">Password</Label>
+                  <Label htmlFor="password" className="text-uno-pink">Password</Label>
                   <Input
-                    id="name"
+                    id="password"
                     type="password"
                     value={user.password}
                     onChange={(e) =>
                       setUser({ ...user, password: e.target.value })
                     }
                     placeholder="Password"
+                    className="text-uno-cyan border-uno-pink"
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label className="text-uno-pink">Role</Label>
+                  <div className="flex items-center space-x-4">
+                    <label className="flex items-center text-uno-cyan">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="client"
+                        checked={user.role === "client"}
+                        onChange={(e) =>
+                          setUser({ ...user, role: e.target.value })
+                        }
+                        className="mr-2"
+                      />
+                      Client
+                    </label>
+                    <label className="flex items-center text-uno-cyan">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="diddler"
+                        checked={user.role === "diddler"}
+                        onChange={(e) =>
+                          setUser({ ...user, role: e.target.value })
+                        }
+                        className="mr-2"
+                      />
+                      Diddler
+                    </label>
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-1.5 col-span-2">
+                  <Label htmlFor="bio" className="text-uno-pink">Bio</Label>
+                  <Input
+                    id="bio"
+                    value={user.bio}
+                    onChange={(e) =>
+                      setUser({ ...user, bio: e.target.value })
+                    }
+                    placeholder="Bio"
+                    className="text-uno-cyan border-uno-pink"
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5 col-span-2">
+                  <Label htmlFor="phone_number" className="text-uno-pink">Phone Number</Label>
+                  <Input
+                    id="phone_number"
+                    value={user.phone_number}
+                    onChange={(e) =>
+                      setUser({ ...user, phone_number: e.target.value })
+                    }
+                    placeholder="Phone Number"
+                    className="text-uno-cyan border-uno-pink"
                   />
                 </div>
               </div>
+              <div className="flex justify-center mt-4">
+                <Button type="submit" className="bg-uno-pink text-uno-cyan border-uno-yellow border-2">Signup</Button>
+              </div>
             </form>
           </CardContent>
-          <div className="flex justify-center">
-            <Button>Signup</Button>
-          </div>
-          <CardFooter className="flex justify-center mt-2">
-            <Link href="/login" className="text-blue-800">
+          <CardFooter className="flex justify-center">
+            <Link href="/login" className="text-uno-yellow">
               Already have an Account?
             </Link>
           </CardFooter>

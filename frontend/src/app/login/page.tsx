@@ -68,7 +68,7 @@ export default function Login() {
             <Button>login</Button>
           </div>
           <CardFooter className="flex justify-center mt-2">
-            <Link href="/login" className="text-blue-800">
+            <Link href="/signup" className="text-blue-800">
               Don&apos;t have an Account?
             </Link>
           </CardFooter>

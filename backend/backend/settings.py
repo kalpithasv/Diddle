@@ -25,8 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'rest_framework',  # Add Django REST framework
-    'diddle',  # Add your app
+    'rest_framework',  
+    'rest_framework.authtoken',
+    'diddle',  
 ]
 
 MIDDLEWARE = [
@@ -41,7 +42,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",  # Update to match your Vite frontend URL
+    "http://localhost:3000", 
 ]
 
 # CORS_ALLOW_ALL_ORIGINS = True  # Uncomment for development
