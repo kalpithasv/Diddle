@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className="top-0 w-full h-full z-[10]">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <div className="bg-white/10 backdrop-blur-md fixed z-[10] w-full flex justify-between items-center md:p-[1.5rem] p-2">
+        <div className="bg-white/10 backdrop-blur-md fixed z-[100] w-full flex justify-between items-center md:p-[1.5rem] p-2">
           <div className="text-2xl font-semibold text-white">
             <Link href="/">DidL</Link>
           </div>
