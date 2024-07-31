@@ -26,11 +26,11 @@ const About = () => {
                   </h3>
                   <div className="text-base !m-0 !p-0 font-normal">
                     <span className="text-slate-500 ">
-                      The Lounge is where freelance heroes hang out. It’s a
-                      bustling space filled with talent and opportunity. Lancers
-                      can showcase their skills, take on exciting projects, and
+                      Where freelance heroes hang out. It’s a
+                      bustling space filled with talent & opportunity. Lancers
+                      can showcase, take on projects, and
                       earn rewards. With every completed challenge and project,
-                      your reputation soars, opening doors to even bigger gigs.
+                      your reputation soars, opening doors to bigger gigs.
                     </span>
                   </div>
                   <Image
@@ -43,12 +43,12 @@ const About = () => {
               <PinContainer title="Mentors Page" href="#">
                 <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
                   <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
-                    The Mentors' Hub
+                    The Mentors&apos; Hub
                   </h3>
                   <div className="text-base !m-0 !p-0 font-normal">
                     <span className="text-slate-500 ">
-                      The Hub is the heart of knowledge and guidance. Here,
-                      experienced professionals share their wisdom and help
+                     The heart of knowledge and guidance. Here,
+                      people share their wisdom and help
                       Lancers level up. Whether it’s through one-on-one
                       mentoring sessions or interactive workshops, Mentors are
                       key players in the Diddleverse.
@@ -67,7 +67,9 @@ const About = () => {
             <h3 className="text-3xl font-bold mb-4 text-white">Clients</h3>
             <div className="flex">
               <PinContainer
-                title="Client Page"
+                title="The Place is where innovation meets execution. Clients
+                      post their project needs and connect with top-notch
+                      Lancers to get the job done."
                 href="#"
                 className="left-0 top-0"
               >
@@ -77,15 +79,10 @@ const About = () => {
                   </h3>
                   <div className="text-base !m-0 !p-0 font-normal">
                     <span className="text-slate-500 ">
-                      The Place is where innovation meets execution. Clients
-                      post their project needs and connect with top-notch
-                      Lancers to get the job done. From small gigs to
-                      large-scale projects, Clients find the right talent to
-                      bring their vision to life.
                     </span>
                   </div>
                   <Image
-                    className="flex flex-1 w-full rounded-lg"
+                    className="flex flex-1 w-full rounded-lg absolute  right-0 z-[-1]"
                     src={clientPic}
                     alt="client pic"
                   />

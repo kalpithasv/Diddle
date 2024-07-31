@@ -3,11 +3,12 @@
 const BACKEND_URI = 'http://localhost:8000';
 
 const nextConfig = {
+  trailingSlash: true,
   async rewrites() {
     return [
       {
         source: '/backend/:path*',
-        destination: `http://localhost:8000/:path*`, 
+        destination: `http://localhost:8000/:path*/`, 
       },
     ];
   },

@@ -56,7 +56,7 @@ export default function Signup() {
   return (
     <div className="h-screen w-full bg-neutral-950 flex items-center justify-center antialiased">
       <div className="z-20">
-        <Card className="w-[600px] bg-white text-uno-cyan border-uno-pink border-2">
+        <Card className="w-[600px]  text-uno-cyan border-uno-pink border-2">
           <CardHeader>
             <CardTitle className="text-uno-yellow">Sign-Up</CardTitle>
             <CardDescription className="text-uno-green">Register yourself in the Banao</CardDescription>

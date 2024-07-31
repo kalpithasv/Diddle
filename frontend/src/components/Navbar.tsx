@@ -3,8 +3,16 @@ import { navLink } from "@/lib/constants";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('access');
+    setIsAuthenticated(!!accessToken);
+  }, []);
+
   return (
     <div className="top-0 w-full h-full z-[10]">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -25,22 +33,35 @@ const Header = () => {
             ))}
           </div>
           <div className="md:flex hidden gap-3">
-            <Link href="login">
-              <Button
-                variant="default"
-                className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
-              >
-                Login
-              </Button>
-            </Link>
-            <Link href="signup">
-              <Button
-                variant="secondary"
-                className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
-              >
-                Signup
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link href="/profile">
+                <Button
+                  variant="default"
+                  className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
+                >
+                  Profile
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button
+                    variant="default"
+                    className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link href="/signup">
+                  <Button
+                    variant="secondary"
+                    className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
+                  >
+                    Signup
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </motion.div>

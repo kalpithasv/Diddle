@@ -26,7 +26,7 @@ export default function Home() {
             className="text-2xl px-4 md:text-4xl lg:text-5xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto "
           >
             Where Lancers and Mentors team up, Clients find talent, and everyone
-            has a blast growing and creating together!
+            has a blast growing and creating together! <br />
             <Highlight className="text-black dark:text-white">
               Dive In and Diddle!
             </Highlight>

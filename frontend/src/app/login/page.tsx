@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useState } from "react";
+import axios from 'axios';
 
 interface User {
   username: string;
@@ -24,6 +25,38 @@ export default function Login() {
     password: "",
   });
 
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      const response = await fetch("/backend/auth/login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        setError(data.error || "Login failed");
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Login successful", data);
+      localStorage.setItem('access', data.access);
+      localStorage.setItem('refresh', data.refresh);
+      // Redirect to root route
+      window.location.href = '/';
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+    }
+  };
+
   return (
     <div className="h-screen w-full bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
       <div className="z-20">
@@ -33,12 +66,12 @@ export default function Login() {
             <CardDescription>Get Back to Banao Application</CardDescription>
           </CardHeader>
           <CardContent>
-            <form>
+            <form onSubmit={handleLogin}>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Username</Label>
+                  <Label htmlFor="username">Username</Label>
                   <Input
-                    id="name"
+                    id="username"
                     value={user.username}
                     onChange={(e) =>
                       setUser({ ...user, username: e.target.value })
@@ -47,9 +80,9 @@ export default function Login() {
                   />
                 </div>
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="framework">Password</Label>
+                  <Label htmlFor="password">Password</Label>
                   <Input
-                    id="name"
+                    id="password"
                     value={user.password}
                     onChange={(e) =>
                       setUser({ ...user, password: e.target.value })
@@ -62,11 +95,12 @@ export default function Login() {
                   </Link>
                 </div>
               </div>
+              {error && <p className="text-red-500">{error}</p>}
+              <div className="flex justify-center mt-4">
+                <Button type="submit">Login</Button>
+              </div>
             </form>
           </CardContent>
-          <div className="flex justify-center">
-            <Button>login</Button>
-          </div>
           <CardFooter className="flex justify-center mt-2">
             <Link href="/signup" className="text-blue-800">
               Don&apos;t have an Account?
