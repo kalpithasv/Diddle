@@ -36,4 +36,4 @@ class HireApplicationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = HireApplication
-        fields = ['id', 'lancer', 'application_text', 'created_at']
+        fields = ['lancer', 'pitch', 'created_at']

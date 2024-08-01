@@ -14,21 +14,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
-interface Project {
-  title: string;
-  description: string;
-  budget: number;
-  deadline: string;
+interface HireApplication {
+  pitch: string;
+  created_at: string;
 }
 
-export default function NewProject() {
-  const [project, setProject] = useState<Project>({
-    title: "",
-    description: "",
-    budget: 0,
-    deadline: "",
+export default function GetHired() {
+  const [application, setApplication] = useState<HireApplication>({
+    pitch: "",
+    created_at: new Date().toISOString().split('T')[0], // Only date part
   });
-
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,19 +34,19 @@ export default function NewProject() {
       router.push('/login');
       return;
     }
-    console.log('Project Payload:', project);
-    const response = await fetch("/backend/projects/", {
+    console.log('Hire Application Payload:', application);
+    const response = await fetch("/backend/hire-applications/", {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(project),
+      body: JSON.stringify(application),
     });
     if (response.ok) {
-      router.push("/projects");
+      router.push("/hire-applications");
     } else {
-      console.error("Project creation failed", response.status, response.statusText);
+      console.error("Hire application submission failed", response.status, response.statusText);
     }
   };
 
@@ -60,63 +55,31 @@ export default function NewProject() {
       <div className="z-20">
         <Card className="w-[600px] text-uno-cyan border-uno-pink border-2">
           <CardHeader>
-            <CardTitle className="text-uno-yellow">New Project</CardTitle>
-            <CardDescription className="text-uno-green">Create a new project</CardDescription>
+            <CardTitle className="text-uno-yellow">Get Hired</CardTitle>
+            <CardDescription className="text-uno-green">Submit your hire application</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="flex flex-col space-y-1.5 col-span-2">
-                  <Label htmlFor="title" className="text-uno-pink">Title</Label>
+              <div className="grid grid-cols-1 gap-4">
+                <div className="flex flex-col space-y-1.5 col-span-1">
+                  <Label htmlFor="pitch" className="text-uno-pink">Application Text</Label>
                   <Input
-                    id="title"
-                    value={project.title}
-                    onChange={(e) => setProject({ ...project, title: e.target.value })}
-                    placeholder="Project Title"
-                    className="text-uno-cyan border-uno-pink"
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5 col-span-2">
-                  <Label htmlFor="description" className="text-uno-pink">Description</Label>
-                  <Input
-                    id="description"
-                    value={project.description}
-                    onChange={(e) => setProject({ ...project, description: e.target.value })}
-                    placeholder="Project Description"
-                    className="text-uno-cyan border-uno-pink"
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="budget" className="text-uno-pink">Budget</Label>
-                  <Input
-                    id="budget"
-                    type="number"
-                    value={project.budget}
-                    onChange={(e) => setProject({ ...project, budget: parseFloat(e.target.value) })}
-                    placeholder="Project Budget"
-                    className="text-uno-cyan border-uno-pink"
-                  />
-                </div>
-                <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="deadline" className="text-uno-pink">Deadline</Label>
-                  <Input
-                    id="deadline"
-                    type="date"
-                    value={project.deadline}
-                    onChange={(e) => setProject({ ...project, deadline: e.target.value })}
-                    placeholder="Project Deadline"
+                    id="pitch"
+                    value={application.pitch}
+                    onChange={(e) => setApplication({ ...application, pitch: e.target.value })}
+                    placeholder="Write your application"
                     className="text-uno-cyan border-uno-pink"
                   />
                 </div>
               </div>
               <div className="flex justify-center mt-4">
-                <Button type="submit" className="bg-uno-pink text-uno-cyan border-uno-yellow border-2">Create Project</Button>
+                <Button type="submit" className="bg-uno-pink text-uno-cyan border-uno-yellow border-2">Submit Application</Button>
               </div>
             </form>
           </CardContent>
           <CardFooter className="flex justify-center">
-            <Link href="/projects" className="text-uno-yellow">
-              Back to Projects
+            <Link href="/hire-applications" className="text-uno-yellow">
+              Back to Hire Applications
             </Link>
           </CardFooter>
         </Card>
