@@ -3,27 +3,48 @@ import React from "react";
 
 const HowItWorks = () => {
   return (
-    <main className="w-screen bg-[#1b1b1b] text-white font-Poppins">
-      <section className="flex flex-col items-center justify-center h-full text-center p-8 bg-[#0c0c0c] text-white">
-        <h2 className="text-5xl font-bold mb-4 text-[#ff69b4]">How It Works</h2>
-        <div className="text-2xl mb-4 text-slate-400 italic">
-          <p className="mb-4">
-            <span className="text-[#00ff00]">Sign Up:</span> Create your snazzy
-            profile and gear up for the Diddle adventure.
-          </p>
-          <p className="mb-4">
-            <span className="text-[#00ffff]">Diddle:</span> Discover courses,
-            projects, and daily challenges tailored to your unique skills.
-          </p>
-          <p className="mb-4">
-            <span className="text-[#ff00ff]">Learn & Earn:</span> Boost your
-            skills with mentorship, complete projects, and participate in fun
-            events.
-          </p>
-          <p className="mb-4">
-            <span className="text-[#ffff00]">Grow:</span> Build your reputation,
-            unlock new opportunities, and dominate the Diddleverse.
-          </p>
+    <main className="w-screen h-full mb-8  text-white font-Poppins">
+      <section className="flex flex-col items-center justify-center h-full p-8">
+        <h2 className="text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-[#6865f1] to-[#a456f7]">
+          How It Works
+        </h2>
+        <div className="space-y-8 text-lg ml-20  text-gray-300">
+          <div className="flex items-center space-x-4">
+            <div className="flex-shrink-0 w-12 h-12 bg-[#a656fa] rounded-full flex items-center justify-center text-white font-bold">
+              1
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Sign Up</h3>
+              <p>Create your profile and get ready for the Diddle adventure.</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="flex-shrink-0 w-12 h-12 bg-[#915af4] rounded-full flex items-center justify-center text-white font-bold">
+              2
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Discover</h3>
+              <p>Explore courses, projects, and daily challenges tailored to your skills.</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="flex-shrink-0 w-12 h-12 bg-[#7861f7] rounded-full flex items-center justify-center text-white font-bold">
+              3
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Learn & Earn</h3>
+              <p>Enhance your skills with mentorship, complete projects, and participate in events.</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="flex-shrink-0 w-12 h-12 bg-[#6666f7] rounded-full flex items-center justify-center text-white font-bold">
+              4
+            </div>
+            <div>
+              <h3 className="font-semibold text-white">Grow</h3>
+              <p>Build your reputation, unlock new opportunities, and excel in the Diddleverse.</p>
+            </div>
+          </div>
         </div>
       </section>
     </main>

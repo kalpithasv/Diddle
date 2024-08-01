@@ -38,8 +38,8 @@ export default function Home() {
       <HowItWorks />
 
       <footer className="bg-[#1b1b1b] p-4 text-center">
-        <p className="text-sm text-[#f6e320]">
-          © 2023 Diddle. All rights reserved. Let&apos;s get diddling!
+        <p className="text-sm text-white">
+          © 2024 Diddle. All rights reserved. Let&apos;s get diddling!
         </p>
       </footer>
     </main>
