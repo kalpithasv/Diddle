@@ -6,7 +6,7 @@ type NavLink = {
 export const navLink: NavLink[] = [
   {
     name: "Events",
-    path: "/events",
+    path: "https://lu.ma",
   },
   {
     name: "Projects",

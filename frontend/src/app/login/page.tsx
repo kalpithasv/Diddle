@@ -63,7 +63,7 @@ export default function Login() {
         <Card className="w-[350px]">
           <CardHeader>
             <CardTitle>Log-In</CardTitle>
-            <CardDescription>Get Back to Banao Application</CardDescription>
+            <CardDescription>Get Back to Diddling</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin}>

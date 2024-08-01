@@ -59,7 +59,7 @@ export default function Signup() {
         <Card className="w-[600px]  text-uno-cyan border-uno-pink border-2">
           <CardHeader>
             <CardTitle className="text-uno-yellow">Sign-Up</CardTitle>
-            <CardDescription className="text-uno-green">Register yourself in the Banao</CardDescription>
+            <CardDescription className="text-uno-green">Register yourself in to Diddle</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit}>

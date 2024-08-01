@@ -19,18 +19,14 @@ const About = () => {
           <div className="bg-gray/10 backdrop-blur-md border-2 border-white p-6 pb-14 rounded-lg shadow-lg w-2/3 relative">
             <h3 className="text-3xl font-bold mb-4 text-white">Diddler</h3>
             <div className="flex gap-4">
-              <PinContainer title="Freelancing Page" href="#">
+              <PinContainer title="Welcome to the Lancers' Lounge, where freelancers flex their skills, tackle epic projects, and level up with every challenge!" href="#">
                 <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
                   <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
                     The Lancers&apos; Lounge
                   </h3>
                   <div className="text-base !m-0 !p-0 font-normal">
                     <span className="text-slate-500 ">
-                      Where freelance heroes hang out. It&apos;s a
-                      bustling space filled with talent & opportunity. Lancers
-                      can showcase, take on projects, and
-                      earn rewards. With every completed challenge and project,
-                      your reputation soars, opening doors to bigger gigs.
+                      
                     </span>
                   </div>
                   <Image
@@ -40,18 +36,14 @@ const About = () => {
                   />
                 </div>
               </PinContainer>
-              <PinContainer title="Mentors Page" href="#">
+              <PinContainer title="Step into the Mentors' Hub, where gurus of greatness share their wisdom, guide the next wave of talent, and host awesome workshops!" href="#">
                 <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
                   <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
                     The Mentors&apos; Hub
                   </h3>
                   <div className="text-base !m-0 !p-0 font-normal">
                     <span className="text-slate-500 ">
-                     The heart of knowledge and guidance. Here,
-                      people share their wisdom and help
-                      Lancers level up. Whether it&apos;s through one-on-one
-                      mentoring sessions or interactive workshops, Mentors are
-                      key players in the Diddleverse.
+                    
                     </span>
                   </div>
                   <Image
