@@ -19,7 +19,7 @@ const About = () => {
           <div className="bg-gray/10 backdrop-blur-md border-2 border-white p-6 pb-14 rounded-lg shadow-lg w-2/3 relative">
             <h3 className="text-3xl font-bold mb-4 text-white">Diddler</h3>
             <div className="flex gap-4">
-              <PinContainer title="Welcome to the Lancers' Lounge, where freelancers flex their skills, tackle epic projects, and level up with every challenge!" href="#">
+              <PinContainer title="Welcome to the Lancers&apos; Lounge, where freelancers flex their skills, tackle epic projects, and level up with every challenge!" href="#">
                 <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
                   <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
                     The Lancers&apos; Lounge
@@ -36,7 +36,7 @@ const About = () => {
                   />
                 </div>
               </PinContainer>
-              <PinContainer title="Step into the Mentors' Hub, where gurus of greatness share their wisdom, guide the next wave of talent, and host awesome workshops!" href="#">
+              <PinContainer title="Step into the Mentors&apos; Hub, where gurus of greatness share their wisdom, guide the next wave of talent, and host awesome workshops!" href="#">
                 <div className="flex basis-full flex-col p-4 tracking-tight text-slate-100/50 sm:basis-1/2 w-[20rem] h-[20rem] ">
                   <h3 className="max-w-xs !pb-2 !m-0 font-bold  text-base text-slate-100">
                     The Mentors&apos; Hub
