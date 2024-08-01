@@ -15,12 +15,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ['user', 'role', 'bio', 'phone_number']
 
 class ProjectSerializer(serializers.ModelSerializer):
-    client = UserProfileSerializer()
-    lancer = UserProfileSerializer()
+    client = UserProfileSerializer(read_only=True)
+    # lancer = UserProfileSerializer()
 
     class Meta:
         model = Project
-        fields = ['id', 'client', 'title', 'lancer', 'description', 'budget', 'deadline']
+        fields = ['client', 'title', 'description', 'budget', 'deadline']
 
 class LancerProposalSerializer(serializers.ModelSerializer):
     project = ProjectSerializer()

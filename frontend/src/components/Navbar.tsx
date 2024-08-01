@@ -4,14 +4,50 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access');
     setIsAuthenticated(!!accessToken);
-  }, []);
+
+    if (accessToken) {
+      const fetchUserProfile = async () => {
+        try {
+          const response = await fetch('/backend/auth/profile/', {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${accessToken}`,
+              'Content-Type': 'application/json'
+            }
+          });
+
+          if (!response.ok) {
+            if (response.status === 401) {
+              // Token is invalid or expired
+              localStorage.removeItem('access');
+              localStorage.removeItem('refresh');
+              router.push('/login');
+            } else {
+              throw new Error('Failed to fetch user profile');
+            }
+          }
+
+          const data = await response.json();
+          setRole(data.role);
+        } catch (error) {
+          setError((error as Error).message);
+        }
+      };
+
+      fetchUserProfile();
+    }
+  }, [router]);
 
   return (
     <div className="top-0 w-full h-full z-[10]">
@@ -34,14 +70,35 @@ const Header = () => {
           </div>
           <div className="md:flex hidden gap-3">
             {isAuthenticated ? (
-              <Link href="/profile">
-                <Button
-                  variant="default"
-                  className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
-                >
-                  Profile
-                </Button>
-              </Link>
+              <>
+                <Link href="/profile">
+                  <Button
+                    variant="default"
+                    className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
+                  >
+                    Profile
+                  </Button>
+                </Link>
+                {role === 'diddler' ? (
+                  <Link href="/get-hired">
+                    <Button
+                      variant="default"
+                      className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
+                    >
+                      Get Hired
+                    </Button>
+                  </Link>
+                ) : role === 'client' ? (
+                  <Link href="/new-project">
+                    <Button
+                      variant="default"
+                      className=" text-md px-4 py-2 rounded-md font-semibold cursor-pointer transition ease-in-out duration-300"
+                    >
+                      New Project
+                    </Button>
+                  </Link>
+                ) : null}
+              </>
             ) : (
               <>
                 <Link href="/login">

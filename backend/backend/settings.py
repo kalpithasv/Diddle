@@ -13,8 +13,6 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY', 'kalps')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
 else:
@@ -63,7 +61,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3000", "http://diddle.vercel.app"
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -92,8 +90,8 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=os.getenv('DB_URI'),
-        conn_max_age=600,  # Optional: Increase connection longevity
-        ssl_require=True  # Optional: Ensure SSL connection
+        conn_max_age=600, 
+        ssl_require=True 
     )
 }
 
