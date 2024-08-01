@@ -46,7 +46,7 @@ export default function ProjectPage() {
     fetchProjects();
   }, [router]);
 
-  const handleContactClick = async (cl) => {
+  const handleContactClick = async (cl: { email: string; phone_number: string }) => {
     setSelectedClient(cl);
   };
 
@@ -59,10 +59,8 @@ export default function ProjectPage() {
       {projects.length > 0 ? (
         projects.map((project) => (
           <ProjectCard
-            key={project.id}
             project={project}
-            onContactClick={handleContactClick}
-            onContactClose={handleClosePopup} />
+            onContactClick={handleContactClick} />
         ))
       ) : (
         <div className="text-uno-pink">No projects found</div>
@@ -87,7 +85,7 @@ export default function ProjectPage() {
   );
 }
 
-function ProjectCard({key, project, onContactClick, onContactClose}) {
+function ProjectCard({project, onContactClick}: { project: Project; onContactClick: (client: { email: string; phone_number: string }) => void }) {
     return (
       <CardContainer className="inter-var">
         <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
