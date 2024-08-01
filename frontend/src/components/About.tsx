@@ -26,7 +26,7 @@ const About = () => {
                   </h3>
                   <div className="text-base !m-0 !p-0 font-normal">
                     <span className="text-slate-500 ">
-                      Where freelance heroes hang out. It’s a
+                      Where freelance heroes hang out. It&apos;s a
                       bustling space filled with talent & opportunity. Lancers
                       can showcase, take on projects, and
                       earn rewards. With every completed challenge and project,
@@ -49,7 +49,7 @@ const About = () => {
                     <span className="text-slate-500 ">
                      The heart of knowledge and guidance. Here,
                       people share their wisdom and help
-                      Lancers level up. Whether it’s through one-on-one
+                      Lancers level up. Whether it&apos;s through one-on-one
                       mentoring sessions or interactive workshops, Mentors are
                       key players in the Diddleverse.
                     </span>

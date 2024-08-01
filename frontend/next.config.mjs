@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const BACKEND_URI = 'http://localhost:8000';
+const BACKEND_URI = process.env.BACKEND_URI || 'http://localhost:8000';
 
 const nextConfig = {
   trailingSlash: true,
@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/backend/:path*',
-        destination: `http://localhost:8000/:path*/`, 
+        destination: `${BACKEND_URI}/:path*/`, 
       },
     ];
   },
