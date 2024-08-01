@@ -3,16 +3,12 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from .models import UserProfile
-from .serializers import UserProfileSerializer
+from .models import UserProfile, Project, LancerProposal, HireApplication
+from .serializers import UserProfileSerializer, ProjectSerializer, LancerProposalSerializer, HireApplicationSerializer
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Project, LancerProposal
-from .serializers import ProjectSerializer, LancerProposalSerializer
-
-
 
 class AuthViewSet(viewsets.ViewSet):
     @action(detail=False, methods=['post'])
@@ -88,6 +84,13 @@ class ProjectViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(client=self.request.user.userprofile)
 
+class HireApplicationViewSet(viewsets.ModelViewSet):
+    queryset = HireApplication.objects.all()
+    serializer_class = HireApplicationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(lancer=self.request.user.userprofile)
 class LancerProposalViewSet(viewsets.ModelViewSet):
     queryset = LancerProposal.objects.all()
     serializer_class = LancerProposalSerializer

@@ -13,7 +13,17 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY', 'kalps')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["*"]
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = [
+        ".vercel.app", 
+        ".onrender.com",  
+        "localhost", 
+        "127.0.0.1", 
+    ]
 
 # Application definition
 INSTALLED_APPS = [

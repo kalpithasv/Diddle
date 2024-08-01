@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import UserProfile
-from .models import Project, LancerProposal
+from .models import UserProfile, Project, LancerProposal, HireApplication
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,3 +30,10 @@ class LancerProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = LancerProposal
         fields = ['id', 'project', 'client', 'lancer', 'proposal_text', 'proposed_amount', 'proposed_deadline']
+
+class HireApplicationSerializer(serializers.ModelSerializer):
+    lancer = UserProfileSerializer()
+
+    class Meta:
+        model = HireApplication
+        fields = ['id', 'lancer', 'application_text', 'created_at']
