@@ -17,12 +17,6 @@ interface Project {
   };
 }
 
-interface Contact {
-    id: number;
-    name: string;
-    email: string;
-}
-
 export default function ProjectPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [selectedClient, setSelectedClient] = useState<{ email: string; phone_number: string } | null>(null);
@@ -61,13 +55,14 @@ export default function ProjectPage() {
   };
 
   return (
-    <div className="h-screen w-full bg-neutral-950 flex flex-wrap items-center justify-center antialiased">
+    <div className="w-screen h-screen flex flex-wrap gap-x-4 justify-center items-center">
       {projects.length > 0 ? (
         projects.map((project) => (
           <ProjectCard
             key={project.id}
             project={project}
-            onContactClick={handleContactClick} />
+            onContactClick={handleContactClick}
+            onContactClose={handleClosePopup} />
         ))
       ) : (
         <div className="text-uno-pink">No projects found</div>
@@ -77,8 +72,8 @@ export default function ProjectPage() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-4 rounded text-black shadow-lg">
             <h2 className="text-xl font-bold  mb-2">Client Details</h2>
-            <p>Email: {selectedClient.email}</p>
-            <p>Phone: {selectedClient.phone_number}</p>
+            <p>Call me at</p>
+            <p>{selectedClient.phone_number}</p>
             <button
               className="mt-4 px-4 py-2 bg-red-500 text-white rounded"
               onClick={handleClosePopup}
@@ -92,7 +87,7 @@ export default function ProjectPage() {
   );
 }
 
-function ProjectCard() {
+function ProjectCard({key, project, onContactClick, onContactClose}) {
     return (
       <CardContainer className="inter-var">
         <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
@@ -100,29 +95,20 @@ function ProjectCard() {
             translateZ="50"
             className="text-xl font-bold text-neutral-600 dark:text-white"
           >
-            Make things float in air
+            {project.title}
           </CardItem>
           <CardItem
             as="p"
             translateZ="60"
             className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
           >
-            Hover over this card to unleash the power of CSS perspective
-          </CardItem>
-          <CardItem translateZ="100" className="w-full mt-4">
-            <Image
-              src={freelancePic}
-              height="1000"
-              width="1000"
-              className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
-              alt="thumbnail"
-            />
+            {project.description}
           </CardItem>
           <div className="flex justify-between items-center mt-20">
             <CardItem
               translateZ={20}
               as={Link}
-              href="https://twitter.com/mannupaaji"
+              href="https://twitter.com/jeyasuryaur"
               target="__blank"
               className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
             >
@@ -131,9 +117,10 @@ function ProjectCard() {
             <CardItem
               translateZ={20}
               as="button"
+              onClick={() => onContactClick(project.client)}
               className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
             >
-              Sign up
+              Contact
             </CardItem>
           </div>
         </CardBody>
