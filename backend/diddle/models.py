@@ -49,3 +49,25 @@ class TrainerSkill(models.Model):
 
     def __str__(self):
         return f"{self.trainer.user_profile.user.username} - {self.skill.name}"
+
+class Project(models.Model):
+    client = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='client_projects')
+    title = models.CharField(max_length=255)
+    lancer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='lancer_projects', null=True, blank=True)
+    description = models.TextField()
+    budget = models.DecimalField(max_digits=10, decimal_places=2)
+    deadline = models.DateField()
+
+    def __str__(self):
+        return self.title
+
+class LancerProposal(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='proposals')
+    client = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='client_proposals', null=True, blank=True)
+    lancer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='lancer_proposals')
+    proposal_text = models.TextField()
+    proposed_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    proposed_deadline = models.DateField()
+
+    def __str__(self):
+        return f"{self.lancer.user.username} - {self.project.title}"

@@ -9,6 +9,9 @@ from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
+from .models import Project, LancerProposal
+from .serializers import ProjectSerializer, LancerProposalSerializer
+
 
 
 class AuthViewSet(viewsets.ViewSet):
@@ -76,3 +79,19 @@ class AuthViewSet(viewsets.ViewSet):
             return Response({'status': 'Logout successful'}, status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response({'error': 'Error logging out'}, status=status.HTTP_400_BAD_REQUEST)
+        
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(client=self.request.user.userprofile)
+
+class LancerProposalViewSet(viewsets.ModelViewSet):
+    queryset = LancerProposal.objects.all()
+    serializer_class = LancerProposalSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(lancer=self.request.user.userprofile)
