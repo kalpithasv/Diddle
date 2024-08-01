@@ -39,7 +39,7 @@ export default function Home() {
 
       <footer className="bg-[#1b1b1b] p-4 text-center">
         <p className="text-sm text-[#f6e320]">
-          © 2023 Diddle. All rights reserved. Let's get diddling!
+          © 2023 Diddle. All rights reserved. Let&apos;s get diddling!
         </p>
       </footer>
     </main>
