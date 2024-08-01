@@ -1,5 +1,5 @@
 
-# [Diddle](https://www.github.com/octokatherine)
+# [Diddle](https://diddle.vercel.app/)
 
 
    Diddle is a revolutionary platform designed to integrate skill exchange with freelancing projects, enabling users to learn, teach, and earn all in one place. 
