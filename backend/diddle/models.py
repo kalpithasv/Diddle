@@ -71,3 +71,11 @@ class LancerProposal(models.Model):
 
     def __str__(self):
         return f"{self.lancer.user.username} - {self.project.title}"
+    
+class HireApplication(models.Model):
+    lancer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='hire_applications')
+    pitch = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.lancer.user.username} - Hire Application"
