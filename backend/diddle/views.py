@@ -8,7 +8,6 @@ from .serializers import UserProfileSerializer, ProjectSerializer, LancerProposa
 from django.contrib.auth.hashers import make_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
-from rest_framework_simplejwt.tokens import RefreshToken
 
 class AuthViewSet(viewsets.ViewSet):
     @action(detail=False, methods=['post'])
@@ -27,7 +26,6 @@ class AuthViewSet(viewsets.ViewSet):
                     username=username,
                     password=make_password(password)
                 )
-                # Create UserProfile and associate with the user
                 user_profile = UserProfile.objects.create(
                     user=user,
                     role=role,
@@ -57,7 +55,6 @@ class AuthViewSet(viewsets.ViewSet):
                 return Response({"error": "User profile does not exist"}, status=status.HTTP_404_NOT_FOUND)
         return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
     
-
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def profile(self, request):
         try:
@@ -91,6 +88,7 @@ class HireApplicationViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(lancer=self.request.user.userprofile)
+
 class LancerProposalViewSet(viewsets.ModelViewSet):
     queryset = LancerProposal.objects.all()
     serializer_class = LancerProposalSerializer

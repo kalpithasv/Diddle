@@ -1,16 +1,49 @@
 "use client";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import React, { useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useId } from "react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import { freelancePic } from "../../../public";
+import { useRouter } from "next/navigation";
 
 export default function ExpandableCardDemo() {
-  const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
-    null
-  );
+  const router = useRouter();
+  const [active, setActive] = useState<any | boolean | null>(null);
+  const [cards, setCards] = useState<any[]>([]);
   const ref = useRef<HTMLDivElement>(null);
   const id = useId();
+
+  useEffect(() => {
+    async function fetchHireApplications() {
+      const accessToken = localStorage.getItem('access');
+      if (!accessToken) {
+        router.push('/login');
+        return;
+      }
+
+      try {
+        const response = await fetch('/backend/hire-applications/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        setCards(data);
+        console.log(data); // Debugging line
+      } catch (error) {
+        console.error("Error fetching hire applications:", error);
+      }
+    }
+
+    fetchHireApplications();
+  }, [router]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -48,7 +81,7 @@ export default function ExpandableCardDemo() {
           {active && typeof active === "object" ? (
             <div className="fixed inset-0  grid place-items-center z-[100]">
               <motion.button
-                key={`button-${active.title}-${id}`}
+                key={`button-${active.lancer.user.username}-${id}`}
                 layout
                 initial={{
                   opacity: 0,
@@ -68,59 +101,27 @@ export default function ExpandableCardDemo() {
                 {/* <CloseIcon /> */}
               </motion.button>
               <motion.div
-                layoutId={`card-${active.title}-${id}`}
+                layoutId={`card-${active.lancer.user.username}-${id}`}
                 ref={ref}
                 className="w-full max-w-[500px]  h-full md:h-fit md:max-h-[90%]  flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
               >
-                <motion.div layoutId={`image-${active.title}-${id}`}>
-                  <Image
+                <motion.div layoutId={`image-${active.lancer.user.username}-${id}`}>
+                  {/* <Image
                     priority
                     width={200}
                     height={200}
-                    src={active.src}
-                    alt={active.title}
+                    src={active.lancer.user.profile_picture} // Assuming you have a profile picture field
+                    alt={active.lancer.user.username}
                     className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
-                  />
+                  /> */}
                 </motion.div>
 
                 <div>
                   <div className="flex justify-between items-start p-4">
-                    <div className="">
-                      <motion.h3
-                        layoutId={`title-${active.title}-${id}`}
-                        className="font-bold text-neutral-700 dark:text-neutral-200"
-                      >
-                        {active.title}
-                      </motion.h3>
-                      <motion.p
-                        layoutId={`description-${active.description}-${id}`}
-                        className="text-neutral-600 dark:text-neutral-400"
-                      >
-                        {active.description}
-                      </motion.p>
-                    </div>
-
-                    <motion.a
-                      layoutId={`button-${active.title}-${id}`}
-                      href={active.ctaLink}
-                      target="_blank"
-                      className="px-4 py-3 text-sm rounded-full font-bold bg-green-500 text-white"
-                    >
-                      {active.ctaText}
-                    </motion.a>
+                    <h2>{active.lancer.user.username}</h2>
                   </div>
                   <div className="pt-4 relative px-4">
-                    <motion.div
-                      layout
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="text-neutral-600 text-xs md:text-sm lg:text-base h-40 md:h-fit pb-10 flex flex-col items-start gap-4 overflow-auto dark:text-neutral-400 [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch]"
-                    >
-                      {typeof active.content === "function"
-                        ? active.content()
-                        : active.content}
-                    </motion.div>
+                    <p>{active.pitch}</p>
                   </div>
                 </div>
               </motion.div>
@@ -130,41 +131,31 @@ export default function ExpandableCardDemo() {
         <ul className="max-w-2xl mx-auto w-full gap-4">
           {cards.map((card, index) => (
             <motion.div
-              layoutId={`card-${card.title}-${id}`}
-              key={`card-${card.title}-${id}`}
+              layoutId={`card-${card.lancer.user.username}-${id}`}
+              key={`card-${card.lancer.user.username}-${id}`}
               onClick={() => setActive(card)}
               className="p-4 flex flex-col md:flex-row justify-between items-center hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer"
             >
               <div className="flex gap-4 flex-col md:flex-row ">
-                <motion.div layoutId={`image-${card.title}-${id}`}>
-                  <Image
+                <motion.div layoutId={`image-${card.lancer.user.username}-${id}`}>
+                  {/* <Image
                     width={100}
                     height={100}
-                    src={card.src}
-                    alt={card.title}
+                    src={card.lancer.user.profile_picture} // Assuming you have a profile picture field
+                    alt={card.lancer.user.username}
                     className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-top"
-                  />
+                  /> */}
                 </motion.div>
                 <div className="">
-                  <motion.h3
-                    layoutId={`title-${card.title}-${id}`}
-                    className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left"
-                  >
-                    {card.title}
-                  </motion.h3>
-                  <motion.p
-                    layoutId={`description-${card.description}-${id}`}
-                    className="text-neutral-600 dark:text-neutral-400 text-center md:text-left"
-                  >
-                    {card.description}
-                  </motion.p>
+                  <h3>{card.lancer.user.username}</h3>
+                  <p>{card.pitch}</p>
                 </div>
               </div>
               <motion.button
-                layoutId={`button-${card.title}-${id}`}
+                layoutId={`button-${card.lancer.user.username}-${id}`}
                 className="px-4 py-2 text-sm rounded-full font-bold bg-gray-100 hover:bg-green-500 hover:text-white text-black mt-4 md:mt-0"
               >
-                {card.ctaText}
+                View Details
               </motion.button>
             </motion.div>
           ))}
@@ -173,96 +164,3 @@ export default function ExpandableCardDemo() {
     </>
   );
 }
-
-// export const CloseIcon = () => {
-//   return (
-//     <motion.svg
-//       initial={{
-//         opacity: 0,
-//       }}
-//       animate={{
-//         opacity: 1,
-//       }}
-//       exit={{
-//         opacity: 0,
-//         transition: {
-//           duration: 0.05,
-//         },
-//       }}
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="24"
-//       height="24"
-//       viewBox="0 0 24 24"
-//       fill="none"
-//       stroke="currentColor"
-//       strokeWidth="2"
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//       className="h-4 w-4 text-black"
-//     >
-//       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-//       <path d="M18 6l-12 12" />
-//       <path d="M6 6l12 12" />
-//     </motion.svg>
-//   );
-// };
-
-const cards = [
-  {
-    description: "John Doe",
-    title: "Web Developer",
-    src: freelancePic,
-    ctaText: "Hire",
-    ctaLink: "https://ui.aceternity.com/templates",
-    content: () => {
-      return (
-        <p>
-          John Doe is a highly skilled web developer with over 10 years of experience in creating dynamic and responsive websites. He specializes in front-end development and has a deep understanding of modern web technologies. <br /> <br /> John has worked on numerous projects, delivering high-quality solutions that meet client needs. His expertise includes HTML, CSS, JavaScript, and various frameworks like React and Angular.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Jane Smith",
-    title: "Graphic Designer",
-    src: freelancePic,
-    ctaText: "Hire",
-    ctaLink: "https://ui.aceternity.com/templates",
-    content: () => {
-      return (
-        <p>
-          Jane Smith is a talented graphic designer known for her creative and innovative designs. With a background in visual arts, she brings a unique artistic touch to every project. <br /> <br /> Jane has a keen eye for detail and excels in creating visually appealing graphics for both digital and print media. Her skills include Adobe Photoshop, Illustrator, and InDesign.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Michael Brown",
-    title: "SEO Specialist",
-    src: freelancePic,
-    ctaText: "Hire",
-    ctaLink: "https://ui.aceternity.com/templates",
-    content: () => {
-      return (
-        <p>
-          Michael Brown is an experienced SEO specialist who helps businesses improve their online visibility and search engine rankings. He has a deep understanding of SEO best practices and algorithms. <br /> <br /> Michael has successfully optimized numerous websites, resulting in increased traffic and higher conversion rates. His expertise includes keyword research, on-page optimization, and link building.
-        </p>
-      );
-    },
-  },
-  {
-    description: "Jeyasurya",
-    title: "Full Stack Developer",
-    src: freelancePic,
-    ctaText: "Hire",
-    ctaLink: "https://ui.aceternity.com/templates",
-    content: () => {
-      return (
-        <p>
-          Hey am an FSD good at Python Django. I am also good at 
-          MERN Stack programming and Database Management.
-        </p>
-      );
-    },
-  },
-];

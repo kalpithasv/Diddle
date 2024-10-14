@@ -32,7 +32,7 @@ class LancerProposalSerializer(serializers.ModelSerializer):
         fields = ['id', 'project', 'client', 'lancer', 'proposal_text', 'proposed_amount', 'proposed_deadline']
 
 class HireApplicationSerializer(serializers.ModelSerializer):
-    lancer = UserProfileSerializer()
+    lancer = UserProfileSerializer(read_only=True)
 
     class Meta:
         model = HireApplication

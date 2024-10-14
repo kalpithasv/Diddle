@@ -16,13 +16,11 @@ import Link from "next/link";
 
 interface HireApplication {
   pitch: string;
-  created_at: string;
 }
 
 export default function GetHired() {
   const [application, setApplication] = useState<HireApplication>({
     pitch: "",
-    created_at: new Date().toISOString().split('T')[0], // Only date part
   });
   const router = useRouter();
 
@@ -44,9 +42,10 @@ export default function GetHired() {
       body: JSON.stringify(application),
     });
     if (response.ok) {
-      router.push("/hire-applications");
+      router.push("/hire");
     } else {
-      console.error("Hire application submission failed", response.status, response.statusText);
+      const errorData = await response.json();
+      console.error("Hire application submission failed", response.status, response.statusText, errorData);
     }
   };
 
