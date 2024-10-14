@@ -3,19 +3,18 @@ import dj_database_url
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-print(BASE_DIR)
-
-# Load environment variables from a .env file if present
-load_dotenv(os.path.join(BASE_DIR, '.env'))
-
 # SECRET_KEY and DEBUG can be set using environment variables
 SECRET_KEY = os.getenv('SECRET_KEY', 'kalps')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
+    # Build paths inside the project like this: BASE_DIR / 'subdir'.
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent
+    print(BASE_DIR)
+
+    # Load environment variables from a .env file if present
+    load_dotenv(os.path.join(BASE_DIR, '.env'))
 else:
     ALLOWED_HOSTS = [
         ".vercel.app", 
